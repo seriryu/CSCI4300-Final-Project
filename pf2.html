@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang=”en”>
+    <head>
+        <meta charset=”UTF-8”>
+        <title>Company and Location</title>
+        <link href="pf.css" type="text/css" rel="stylesheet">
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="text">
+                <a href="pf.html">return</a>
+                <h1>Job Listings</h1>
+                <p>Please input company name.</p>
+                <form action="" method="GET" name="input">
+                    <input type="text" name="id">
+                    <br><br>
+
+<!--
+                    <label>Languages</label>
+                    <select>
+                        <option value="1">English</option>
+                        <option value="2">Spanish</option>
+                    </select>
+                    <br><br>
+-->
+                    <input type="button" value="Get Data!" onclick="btnClick()">
+                </form>
+            </div>
+
+            <table id="listing">
+                <thead>
+                    <tr>
+                        <th>Company</th>
+                        <th>Job</th>
+                        <th>Language</th>
+                        <th>Location</th>
+                        <th>Remote</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+        <script>
+          // our code goes here!
+            function btnClick() {
+
+                var dataall = $("form").serialize();
+                $.ajax({url: "//172.17.152.44/listings/", type: "GET", data: dataall, success: function(result){
+                        $.each(result, function(i, item){
+                            $("#listings").append([
+                                $("<tr>")
+                                    .append("<td>" + item.company + "</td>")
+                                    .append("<td>" + item.title + "</td>")
+                                    .append("<td>" + item.language + "</td>")
+                                    .append("<td>" + item.location + "</td>")
+                                    .append("<td>" + item.remote + "</td>")
+                            ]);
+                        });
+                    }
+                });
+
+            }
+        </script>
+
+    </body>
+
+</html>
+           
